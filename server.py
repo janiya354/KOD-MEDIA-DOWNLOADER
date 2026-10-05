@@ -28,9 +28,11 @@ def index():
     return send_from_directory(BASE, "index.html")
 
 
-@app.get("/assets/<path:name>")
-def assets(name):
-    return send_from_directory(os.path.join(BASE, "assets"), name)
+@app.get("/<name>")
+def static_files(name):
+    if name in ("background.jpg", "youtube.png", "facebook.png", "tiktok.png"):
+        return send_from_directory(BASE, name)
+    return jsonify(error="Not found"), 404
 
 
 @app.post("/api/info")
