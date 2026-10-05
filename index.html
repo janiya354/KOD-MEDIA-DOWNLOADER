@@ -2,28 +2,34 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>KOD Media Downloader</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box
+}
 
 :root{
     --brand:#20ff75;
-    --accent:#ff3b3b;
     --accent-rgb:255,59,59;
     --ink:#eef5f0;
     --muted:#93a39a;
     --line:rgba(255,255,255,.1);
-    --panel:rgba(8,14,11,.66);
+    --panel:rgba(8,14,11,.68);
     --display:'Unbounded','Arial Black',Arial,sans-serif;
-    --body:'Manrope',Arial,Helvetica,sans-serif;
+    --body:'Manrope',Arial,sans-serif;
 }
 
-html{scroll-behavior:smooth}
+html{
+    scroll-behavior:smooth
+}
 
 body{
     min-height:100vh;
@@ -31,195 +37,504 @@ body{
     color:var(--ink);
     background:#040807;
     overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
 }
 
 /* BACKGROUND */
-.background{
-    position:fixed;inset:0;z-index:-5;
-    background:
-        radial-gradient(1200px 600px at 50% -10%,rgba(var(--accent-rgb),.16),transparent 60%),
-        linear-gradient(rgba(2,6,4,.72),rgba(2,6,4,.9)),
-        url("assets/background.jpg") center/cover no-repeat;
-    transition:background .5s;
-}
-.light{
-    position:fixed;width:380px;height:380px;border-radius:50%;
-    background:rgba(var(--accent-rgb),.12);
-    filter:blur(90px);z-index:-3;
-    animation:drift 14s ease-in-out infinite alternate;
-    transition:background .5s;
-}
-.light.one{top:-130px;left:-110px}
-.light.two{right:-140px;bottom:-110px;background:rgba(32,255,117,.08);animation-delay:2s}
-@keyframes drift{to{transform:translate(90px,50px)}}
 
-.container{width:100%;max-width:760px;margin:auto;padding:28px 18px 40px}
+.background{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    background:
+        radial-gradient(
+            1200px 600px at 50% -10%,
+            rgba(var(--accent-rgb),.16),
+            transparent 60%
+        ),
+        linear-gradient(
+            rgba(2,6,4,.70),
+            rgba(2,6,4,.93)
+        ),
+        linear-gradient(
+            135deg,
+            #07120c,
+            #020504
+        );
+}
+
+.light{
+    position:fixed;
+    width:380px;
+    height:380px;
+    border-radius:50%;
+    background:rgba(var(--accent-rgb),.12);
+    filter:blur(90px);
+    z-index:-3;
+    animation:drift 14s ease-in-out infinite alternate;
+}
+
+.light.one{
+    top:-130px;
+    left:-110px
+}
+
+.light.two{
+    right:-140px;
+    bottom:-110px;
+    background:rgba(32,255,117,.08);
+    animation-delay:2s
+}
+
+@keyframes drift{
+    to{
+        transform:translate(90px,50px)
+    }
+}
+
+.container{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    padding:28px 18px 40px
+}
 
 /* HEADER */
-.header{display:flex;align-items:center;gap:16px;padding:18px 0 30px}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    padding:18px 0 30px
+}
 
 .logo-box{
-    flex:none;width:62px;height:62px;
-    display:grid;place-items:center;
+    flex:none;
+    width:62px;
+    height:62px;
+    display:grid;
+    place-items:center;
     border-radius:18px;
     border:1px solid rgba(32,255,117,.55);
-    background:linear-gradient(145deg,rgba(32,255,117,.18),rgba(0,0,0,.6));
+    background:
+        linear-gradient(
+            145deg,
+            rgba(32,255,117,.18),
+            rgba(0,0,0,.6)
+        );
     color:var(--brand);
-    font-family:var(--display);font-weight:800;font-size:17px;
-    box-shadow:0 0 28px rgba(32,255,117,.2),inset 0 1px 0 rgba(255,255,255,.12);
+    font-family:var(--display);
+    font-weight:800;
+    font-size:17px;
+    box-shadow:
+        0 0 28px rgba(32,255,117,.2),
+        inset 0 1px 0 rgba(255,255,255,.12)
 }
+
 .header h1{
     font-family:var(--display);
     font-size:clamp(19px,5vw,30px);
-    font-weight:700;line-height:1.15;letter-spacing:.5px;
+    font-weight:700;
+    line-height:1.15
 }
-.header p{margin-top:6px;color:var(--muted);font-size:14px}
 
-/* PLATFORMS */
-.platforms{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;
+.header p{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:14px
 }
+
+/* PLATFORM CARDS */
+
+.platforms{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-bottom:18px
+}
+
 .platform{
     position:relative;
-    display:flex;align-items:center;gap:12px;
+    display:flex;
+    align-items:center;
+    gap:12px;
     padding:14px 16px;
-    border:1px solid var(--line);border-radius:18px;
+    border:1px solid var(--line);
+    border-radius:18px;
     background:var(--panel);
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
     cursor:pointer;
-    transition:border-color .25s,background .25s,box-shadow .25s,transform .25s;
+    transition:
+        border-color .25s,
+        background .25s,
+        box-shadow .25s,
+        transform .25s;
 }
-.platform:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.28)}
+
+.platform:hover{
+    transform:translateY(-3px);
+    border-color:rgba(255,255,255,.28)
+}
+
 .platform.active{
     border-color:rgb(var(--accent-rgb));
-    background:linear-gradient(160deg,rgba(var(--accent-rgb),.18),rgba(8,14,11,.7));
-    box-shadow:0 10px 34px rgba(var(--accent-rgb),.2);
+    background:
+        linear-gradient(
+            160deg,
+            rgba(var(--accent-rgb),.18),
+            rgba(8,14,11,.7)
+        );
+    box-shadow:
+        0 10px 34px rgba(var(--accent-rgb),.2)
 }
-.social-logo{width:38px;height:38px;object-fit:contain;flex:none}
-.platform strong{display:block;font-size:16px;font-weight:800}
-.platform small{display:block;margin-top:2px;color:var(--muted);font-size:12px}
+
+/* INLINE SVG LOGO */
+
+.social-logo{
+    width:42px;
+    height:42px;
+    flex:none;
+    display:block;
+}
+
+.platform strong{
+    display:block;
+    font-size:16px;
+    font-weight:800
+}
+
+.platform small{
+    display:block;
+    margin-top:2px;
+    color:var(--muted);
+    font-size:12px
+}
 
 /* MAIN CARD */
+
 .card{
     padding:28px;
-    border:1px solid var(--line);border-radius:26px;
+    border:1px solid var(--line);
+    border-radius:26px;
     background:var(--panel);
-    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-    box-shadow:0 30px 80px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.07);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.45),
+        inset 0 1px 0 rgba(255,255,255,.07)
 }
-.label{display:block;color:#c3cfc7;font-weight:500;margin-bottom:12px}
-#platformName{color:rgb(var(--accent-rgb));font-weight:800;transition:color .3s}
 
-.url-box{display:flex;gap:10px}
-.url-box input{
-    flex:1;min-width:0;padding:17px 18px;
-    border:1px solid var(--line);border-radius:14px;
-    background:rgba(0,0,0,.5);color:#fff;
-    font:500 15px var(--body);outline:none;
-    transition:border-color .2s,box-shadow .2s;
+.label{
+    display:block;
+    color:#c3cfc7;
+    font-weight:500;
+    margin-bottom:12px
 }
-.url-box input::placeholder{color:#66756c}
+
+#platformName{
+    color:rgb(var(--accent-rgb));
+    font-weight:800;
+    transition:color .3s
+}
+
+.url-box{
+    display:flex;
+    gap:10px
+}
+
+.url-box input{
+    flex:1;
+    min-width:0;
+    padding:17px 18px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(0,0,0,.5);
+    color:#fff;
+    font:500 15px var(--body);
+    outline:none;
+    transition:
+        border-color .2s,
+        box-shadow .2s
+}
+
+.url-box input::placeholder{
+    color:#66756c
+}
+
 .url-box input:focus{
     border-color:rgb(var(--accent-rgb));
-    box-shadow:0 0 0 4px rgba(var(--accent-rgb),.16);
+    box-shadow:
+        0 0 0 4px rgba(var(--accent-rgb),.16)
 }
 
 button{
-    border:0;border-radius:14px;padding:0 26px;
-    background:rgb(var(--accent-rgb));color:#fff;
-    font:800 14px var(--body);letter-spacing:.6px;
+    border:0;
+    border-radius:14px;
+    padding:0 26px;
+    background:rgb(var(--accent-rgb));
+    color:#fff;
+    font:800 14px var(--body);
+    letter-spacing:.6px;
     cursor:pointer;
-    transition:transform .2s,box-shadow .2s,background .3s;
+    transition:
+        transform .2s,
+        box-shadow .2s
 }
-button:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(var(--accent-rgb),.4)}
-button:active{transform:translateY(0)}
-:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:
+        0 10px 28px rgba(var(--accent-rgb),.4)
+}
+
+button:active{
+    transform:translateY(0)
+}
 
 /* RESULT */
-.result{
-    display:none;margin-top:24px;padding:22px;
-    border:1px solid var(--line);border-radius:20px;
-    background:rgba(0,0,0,.28);
-}
-.result.show{display:block;animation:appear .35s ease}
-@keyframes appear{from{opacity:0;transform:translateY(10px)}}
 
-.preview{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.result{
+    display:none;
+    margin-top:24px;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:20px;
+    background:rgba(0,0,0,.28)
+}
+
+.result.show{
+    display:block;
+    animation:appear .35s ease
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(10px)
+    }
+}
+
+.preview{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    margin-bottom:24px
+}
+
 .thumbnail{
-    flex:none;width:128px;height:76px;
-    display:grid;place-items:center;
+    flex:none;
+    width:128px;
+    height:76px;
+    display:grid;
+    place-items:center;
     border-radius:14px;
     border:1px solid rgba(var(--accent-rgb),.35);
-    background:linear-gradient(135deg,rgba(var(--accent-rgb),.28),rgba(0,0,0,.75));
-    font-size:26px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(var(--accent-rgb),.28),
+            rgba(0,0,0,.75)
+        );
+    font-size:26px
 }
-.preview h3{font-size:17px;margin-bottom:5px}
-.preview p{color:var(--muted);font-size:13px}
 
-.section-title{color:#b9c6be;font-weight:700;font-size:14px;margin-bottom:12px}
+.preview h3{
+    font-size:17px;
+    margin-bottom:5px
+}
 
-.formats,.quality-buttons{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.preview p{
+    color:var(--muted);
+    font-size:13px
+}
 
-.format,.quality-btn{
-    padding:18px;text-align:center;cursor:pointer;
-    border:1px solid var(--line);border-radius:16px;
+.section-title{
+    color:#b9c6be;
+    font-weight:700;
+    font-size:14px;
+    margin-bottom:12px
+}
+
+.formats,
+.quality-buttons{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px
+}
+
+.format,
+.quality-btn{
+    padding:18px;
+    text-align:center;
+    cursor:pointer;
+    border:1px solid var(--line);
+    border-radius:16px;
     background:rgba(0,0,0,.38);
-    transition:border-color .2s,background .2s,transform .2s;
+    transition:
+        border-color .2s,
+        background .2s,
+        transform .2s
 }
-.format:hover,.quality-btn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.28)}
-.format.selected,.quality-btn.selected{
+
+.format:hover,
+.quality-btn:hover{
+    transform:translateY(-2px);
+    border-color:rgba(255,255,255,.28)
+}
+
+.format.selected,
+.quality-btn.selected{
     border-color:rgb(var(--accent-rgb));
     background:rgba(var(--accent-rgb),.13);
-    box-shadow:0 0 0 3px rgba(var(--accent-rgb),.12);
+    box-shadow:
+        0 0 0 3px rgba(var(--accent-rgb),.12)
 }
-.format-icon{font-size:28px}
-.format strong{display:block;margin-top:8px;font-size:15px}
-.format small{color:var(--muted);font-size:12px}
-.quality-btn strong{font-size:14px}
 
-.quality{display:none;margin-top:22px}
-.quality.show{display:block;animation:appear .3s ease}
+.format-icon{
+    font-size:28px
+}
 
-.download{width:100%;height:54px;margin-top:24px;font-size:15px}
+.format strong{
+    display:block;
+    margin-top:8px;
+    font-size:15px
+}
+
+.format small{
+    color:var(--muted);
+    font-size:12px
+}
+
+.quality{
+    display:none;
+    margin-top:22px
+}
+
+.quality.show{
+    display:block;
+    animation:appear .3s ease
+}
+
+.download{
+    width:100%;
+    height:54px;
+    margin-top:24px;
+    font-size:15px
+}
 
 /* FOOTER */
-footer{text-align:center;margin-top:34px;color:#7d8c83;font-size:13px}
-footer span{color:var(--brand);font-weight:800}
+
+footer{
+    text-align:center;
+    margin-top:34px;
+    color:#7d8c83;
+    font-size:13px
+}
+
+footer span{
+    color:var(--brand);
+    font-weight:800
+}
 
 /* TOAST */
+
 .toast{
-    position:fixed;left:50%;bottom:26px;
+    position:fixed;
+    left:50%;
+    bottom:26px;
     transform:translate(-50%,30px);
     max-width:calc(100% - 32px);
-    padding:13px 20px;border-radius:14px;
+    padding:13px 20px;
+    border-radius:14px;
     background:rgba(10,18,14,.95);
     border:1px solid rgba(var(--accent-rgb),.6);
-    font-size:14px;font-weight:600;
-    opacity:0;pointer-events:none;
+    font-size:14px;
+    font-weight:600;
+    opacity:0;
+    pointer-events:none;
     transition:.3s;
+    z-index:100
 }
-.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0)
+}
 
 /* MOBILE */
+
 @media(max-width:600px){
-    .container{padding:16px 12px 32px}
-    .header{padding:10px 0 22px;gap:12px}
-    .logo-box{width:52px;height:52px;border-radius:15px;font-size:14px}
-    .platforms{gap:8px}
-    .platform{flex-direction:column;justify-content:center;gap:8px;padding:16px 8px;text-align:center}
-    .platform small{display:none}
-    .social-logo{width:44px;height:44px}
-    .card{padding:18px;border-radius:22px}
-    .url-box{flex-direction:column}
-    .url-box button{height:52px}
-    .result{padding:16px}
-    .preview{align-items:flex-start}
-    .thumbnail{width:96px;height:64px}
+
+    .container{
+        padding:16px 12px 32px
+    }
+
+    .header{
+        padding:10px 0 22px;
+        gap:12px
+    }
+
+    .logo-box{
+        width:52px;
+        height:52px;
+        border-radius:15px;
+        font-size:14px
+    }
+
+    .platforms{
+        gap:8px
+    }
+
+    .platform{
+        flex-direction:column;
+        justify-content:center;
+        gap:8px;
+        padding:16px 8px;
+        text-align:center
+    }
+
+    .platform small{
+        display:none
+    }
+
+    .social-logo{
+        width:46px;
+        height:46px
+    }
+
+    .card{
+        padding:18px;
+        border-radius:22px
+    }
+
+    .url-box{
+        flex-direction:column
+    }
+
+    .url-box button{
+        height:52px
+    }
+
+    .result{
+        padding:16px
+    }
+
+    .preview{
+        align-items:flex-start
+    }
+
+    .thumbnail{
+        width:96px;
+        height:64px
+    }
 }
 
 @media(prefers-reduced-motion:reduce){
-    *{animation:none!important;transition:none!important}
+
+    *{
+        animation:none!important;
+        transition:none!important
+    }
 }
 </style>
 </head>
@@ -232,191 +547,635 @@ footer span{color:var(--brand);font-weight:800}
 
 <div class="container">
 
-    <header class="header">
-        <div class="logo-box">KOD</div>
-        <div>
-            <h1>KOD Media Downloader</h1>
-            <p>Fast, simple, multi-platform</p>
-        </div>
-    </header>
+<!-- HEADER -->
 
-    <!-- YT / FB / TT -->
-    <div class="platforms">
+<header class="header">
 
-        <div class="platform active" data-platform="YouTube" data-rgb="255,59,59">
-            <img class="social-logo" src="assets/youtube.png" alt="YouTube"
-                 onerror="logoFallback(this,'youtube')">
-            <div><strong>YT</strong><small>YouTube</small></div>
-        </div>
-
-        <div class="platform" data-platform="Facebook" data-rgb="59,130,246">
-            <img class="social-logo" src="assets/facebook.png" alt="Facebook"
-                 onerror="logoFallback(this,'facebook')">
-            <div><strong>FB</strong><small>Facebook</small></div>
-        </div>
-
-        <div class="platform" data-platform="TikTok" data-rgb="37,244,238">
-            <img class="social-logo" src="assets/tiktok.png" alt="TikTok"
-                 onerror="logoFallback(this,'tiktok')">
-            <div><strong>TT</strong><small>TikTok</small></div>
-        </div>
-
+    <div class="logo-box">
+        KOD
     </div>
 
-    <!-- DOWNLOADER -->
-    <div class="card">
-
-        <label class="label" for="url">
-            Paste your <span id="platformName">YouTube</span> URL
-        </label>
-
-        <div class="url-box">
-            <input id="url" type="url" placeholder="https://...">
-            <button onclick="fetchVideo()">FETCH</button>
-        </div>
-
-        <div class="result" id="result">
-
-            <div class="preview">
-                <div class="thumbnail">▶</div>
-                <div>
-                    <h3 id="videoTitle">Video Ready</h3>
-                    <p id="videoPlatform">YouTube</p>
-                </div>
-            </div>
-
-            <div class="section-title">What do you want to download?</div>
-
-            <div class="formats">
-                <div class="format" onclick="selectFormat('mp3',this)">
-                    <div class="format-icon">🎵</div>
-                    <strong>MP3</strong>
-                    <small>Audio only</small>
-                </div>
-                <div class="format" onclick="selectFormat('video',this)">
-                    <div class="format-icon">🎬</div>
-                    <strong>Video</strong>
-                    <small>MP4</small>
-                </div>
-            </div>
-
-            <div class="quality" id="quality">
-                <div class="section-title">Select video quality</div>
-                <div class="quality-buttons">
-                    <div class="quality-btn" onclick="selectQuality('HD',this)">
-                        🔥<br><strong>HD</strong>
-                    </div>
-                    <div class="quality-btn" onclick="selectQuality('LOW',this)">
-                        ⚡<br><strong>Low quality</strong>
-                    </div>
-                </div>
-            </div>
-
-            <button class="download" onclick="downloadMedia()">⬇ DOWNLOAD</button>
-
-        </div>
+    <div>
+        <h1>KOD Media Downloader</h1>
+        <p>Fast, simple, multi-platform</p>
     </div>
 
-    <footer>Powered by <span>Kingdom of Devil</span></footer>
+</header>
+
+
+<!-- PLATFORM CARDS -->
+
+<div class="platforms">
+
+<!-- YOUTUBE -->
+
+<div
+    class="platform active"
+    data-platform="YouTube"
+    data-rgb="255,59,59"
+>
+
+<svg
+    class="social-logo"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<rect
+    x="2"
+    y="8"
+    width="44"
+    height="32"
+    rx="10"
+    fill="#FF0000"
+/>
+
+<path
+    d="M20 17L34 24L20 31V17Z"
+    fill="white"
+/>
+
+</svg>
+
+<div>
+    <strong>YT</strong>
+    <small>YouTube</small>
+</div>
 
 </div>
 
-<div class="toast" id="toast" role="status"></div>
+
+<!-- FACEBOOK -->
+
+<div
+    class="platform"
+    data-platform="Facebook"
+    data-rgb="59,130,246"
+>
+
+<svg
+    class="social-logo"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<circle
+    cx="24"
+    cy="24"
+    r="22"
+    fill="#1877F2"
+/>
+
+<path
+    d="M27 42V27H32L33 21H27V17.5C27 15.7 27.8 14.5 30.2 14.5H33V9.1C32.2 9 30.6 8.8 28.5 8.8C23.8 8.8 21 11.7 21 16.9V21H16V27H21V42H27Z"
+    fill="white"
+/>
+
+</svg>
+
+<div>
+    <strong>FB</strong>
+    <small>Facebook</small>
+</div>
+
+</div>
+
+
+<!-- TIKTOK -->
+
+<div
+    class="platform"
+    data-platform="TikTok"
+    data-rgb="37,244,238"
+>
+
+<svg
+    class="social-logo"
+    viewBox="0 0 48 48"
+    xmlns="http://www.w3.org/2000/svg"
+>
+
+<rect
+    x="2"
+    y="2"
+    width="44"
+    height="44"
+    rx="12"
+    fill="#000"
+/>
+
+<!-- cyan shadow -->
+
+<path
+    d="M29 9H34C34.5 13 36.8 15.5 40 16V21C37.2 21 34.5 20.2 32 18.7V30C32 36 27.5 40 21.8 40C16.2 40 12 36.2 12 30.7C12 25.2 16.2 21.2 21.7 21.2C22.4 21.2 23.1 21.3 23.8 21.5V27C23.2 26.8 22.7 26.7 22.1 26.7C19.8 26.7 18 28.3 18 30.7C18 33 19.7 34.7 22 34.7C24.7 34.7 26 32.8 26 30.1V9H29Z"
+    fill="#25F4EE"
+    opacity=".9"
+/>
+
+<!-- pink shadow -->
+
+<path
+    d="M31 9H35C35.5 12.5 37.5 14.8 40 15.7V19.7C37.3 19.2 34.8 18.3 32.8 16.8V28.8C32.8 34.8 28.5 39 22.7 39C20.5 39 18.6 38.4 17 37.4C18.3 38.1 19.8 38.5 21.4 38.5C27.1 38.5 31 34.6 31 29V9Z"
+    fill="#FE2C55"
+    opacity=".8"
+/>
+
+<!-- white main -->
+
+<path
+    d="M27 8H32C32.4 12.1 34.6 14.5 38 15.4V20.2C35.3 19.9 32.9 19 30.8 17.6V29.3C30.8 35 26.9 38.5 21.7 38.5C16.4 38.5 12.5 35 12.5 30C12.5 25 16.4 21.3 21.5 21.3C22.2 21.3 22.8 21.4 23.4 21.5V26.6C22.9 26.4 22.4 26.3 21.8 26.3C19.5 26.3 17.8 27.9 17.8 30.1C17.8 32.3 19.4 34 21.7 34C24.3 34 26 32.2 26 29.5V8H27Z"
+    fill="white"
+/>
+
+</svg>
+
+<div>
+    <strong>TT</strong>
+    <small>TikTok</small>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- DOWNLOADER -->
+
+<div class="card">
+
+<label class="label">
+
+Paste your
+<span id="platformName">YouTube</span>
+URL
+
+</label>
+
+
+<div class="url-box">
+
+<input
+    id="url"
+    type="url"
+    placeholder="https://..."
+>
+
+<button onclick="fetchVideo()">
+FETCH
+</button>
+
+</div>
+
+
+<div
+    class="result"
+    id="result"
+>
+
+<div class="preview">
+
+<div class="thumbnail">
+    ▶
+</div>
+
+<div>
+
+<h3 id="videoTitle">
+    Video Ready
+</h3>
+
+<p id="videoPlatform">
+    YouTube
+</p>
+
+</div>
+
+</div>
+
+
+<div class="section-title">
+What do you want to download?
+</div>
+
+
+<div class="formats">
+
+<div
+    class="format"
+    onclick="selectFormat('mp3',this)"
+>
+
+<div class="format-icon">
+    🎵
+</div>
+
+<strong>
+    MP3
+</strong>
+
+<small>
+    Audio only
+</small>
+
+</div>
+
+
+<div
+    class="format"
+    onclick="selectFormat('video',this)"
+>
+
+<div class="format-icon">
+    🎬
+</div>
+
+<strong>
+    Video
+</strong>
+
+<small>
+    MP4
+</small>
+
+</div>
+
+</div>
+
+
+<div
+    class="quality"
+    id="quality"
+>
+
+<div class="section-title">
+Select video quality
+</div>
+
+<div class="quality-buttons">
+
+<div
+    class="quality-btn"
+    onclick="selectQuality('HD',this)"
+>
+    🔥
+    <br>
+    <strong>HD</strong>
+</div>
+
+
+<div
+    class="quality-btn"
+    onclick="selectQuality('LOW',this)"
+>
+    ⚡
+    <br>
+    <strong>Low quality</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<button
+    class="download"
+    onclick="downloadMedia()"
+>
+    ⬇ DOWNLOAD
+</button>
+
+</div>
+
+</div>
+
+
+<footer>
+Powered by
+<span>Kingdom of Devil</span>
+</footer>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
 
 <script>
-/* LOGO FALLBACK: if assets/*.png is missing, use built-in inline logos (no internet needed) */
-const LOGOS = {
-  youtube:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="1" y="4.5" width="22" height="15" rx="4.5" fill="#ff0000"/><path d="M10 9l5.5 3-5.5 3z" fill="#fff"/></svg>',
-  facebook:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1877f2"/><path d="M13.5 21v-8h2.7l.4-3.2h-3.1V7.8c0-.9.3-1.5 1.6-1.5h1.7V3.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4.1 1.5-4.1 4.2v2.3H7.5V13h2.8v8z" fill="#fff"/></svg>',
-  tiktok:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="6" fill="#000"/><path d="M16.6 5.8c-.7-.8-1.1-1.8-1.1-2.8h-3v12.2c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5c.3 0 .5 0 .8.1V9.7c-.3 0-.5-.1-.8-.1-3 0-5.5 2.5-5.5 5.5S6 20.6 9 20.6s5.5-2.5 5.5-5.5V9.1c1.1.8 2.4 1.2 3.8 1.2V7.3c-.7 0-1.4-.6-1.7-1.5z" fill="#fff"/></svg>'
-};
-function logoFallback(img, name){
-    img.onerror = null;
-    img.src = "data:image/svg+xml;utf8," + encodeURIComponent(LOGOS[name]);
-}
 
-let selectedPlatform = "YouTube";
-let selectedFormat = "";
-let selectedQuality = "";
+let selectedPlatform="YouTube";
+let selectedFormat="";
+let selectedQuality="";
+let mediaURL="";
+
+let toastTimer;
+
 
 /* TOAST */
-let toastTimer;
-function toast(msg){
-    const t = document.getElementById("toast");
-    t.textContent = msg;
-    t.classList.add("show");
+
+function toast(message){
+
+    const box =
+        document.getElementById("toast");
+
+    box.textContent=message;
+
+    box.classList.add("show");
+
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+
+    toastTimer=setTimeout(()=>{
+        box.classList.remove("show");
+    },2800);
+
 }
 
-/* PLATFORM (theme colour follows the selected platform) */
-document.querySelectorAll(".platform").forEach(card => {
-    card.addEventListener("click", () => {
-        document.querySelectorAll(".platform")
-            .forEach(item => item.classList.remove("active"));
+
+/* PLATFORM */
+
+document
+.querySelectorAll(".platform")
+.forEach(card=>{
+
+    card.addEventListener("click",()=>{
+
+        document
+        .querySelectorAll(".platform")
+        .forEach(item=>{
+            item.classList.remove("active");
+        });
+
         card.classList.add("active");
 
-        selectedPlatform = card.dataset.platform;
-        document.getElementById("platformName").textContent = selectedPlatform;
+        selectedPlatform=
+            card.dataset.platform;
 
-        const rgb = card.dataset.rgb;
-        const root = document.documentElement.style;
-        root.setProperty("--accent-rgb", rgb);
-        root.setProperty("--accent", "rgb(" + rgb + ")");
+        document
+        .getElementById("platformName")
+        .textContent=
+            selectedPlatform;
+
+        document.documentElement.style
+        .setProperty(
+            "--accent-rgb",
+            card.dataset.rgb
+        );
+
     });
+
 });
 
+
 /* FETCH */
+
 function fetchVideo(){
-    const url = document.getElementById("url").value.trim();
+
+    const url=
+        document
+        .getElementById("url")
+        .value
+        .trim();
+
     if(!url){
-        toast("Please paste a video URL.");
+
+        toast(
+            "Please paste a media URL."
+        );
+
         return;
     }
-    document.getElementById("result").classList.add("show");
-    document.getElementById("videoPlatform").textContent = selectedPlatform;
-    document.getElementById("videoTitle").textContent = "Video Ready";
+
+    try{
+
+        new URL(url);
+
+    }catch{
+
+        toast(
+            "Please enter a valid URL."
+        );
+
+        return;
+    }
+
+    mediaURL=url;
+
+    document
+    .getElementById("result")
+    .classList
+    .add("show");
+
+    document
+    .getElementById("videoPlatform")
+    .textContent=
+        selectedPlatform;
+
+    document
+    .getElementById("videoTitle")
+    .textContent=
+        "Media Ready";
+
 }
+
 
 /* FORMAT */
-function selectFormat(format, element){
-    selectedFormat = format;
-    document.querySelectorAll(".format")
-        .forEach(item => item.classList.remove("selected"));
+
+function selectFormat(format,element){
+
+    selectedFormat=format;
+
+    document
+    .querySelectorAll(".format")
+    .forEach(item=>{
+        item.classList.remove("selected");
+    });
+
     element.classList.add("selected");
 
-    const quality = document.getElementById("quality");
-    if(format === "video"){
+    const quality=
+        document.getElementById("quality");
+
+
+    if(format==="video"){
+
         quality.classList.add("show");
+
     }else{
+
         quality.classList.remove("show");
-        selectedQuality = "";
-        document.querySelectorAll(".quality-btn")
-            .forEach(item => item.classList.remove("selected"));
+
+        selectedQuality="";
+
+        document
+        .querySelectorAll(".quality-btn")
+        .forEach(item=>{
+            item.classList.remove("selected");
+        });
+
     }
+
 }
+
 
 /* QUALITY */
-function selectQuality(quality, element){
-    selectedQuality = quality;
-    document.querySelectorAll(".quality-btn")
-        .forEach(item => item.classList.remove("selected"));
+
+function selectQuality(quality,element){
+
+    selectedQuality=quality;
+
+    document
+    .querySelectorAll(".quality-btn")
+    .forEach(item=>{
+        item.classList.remove("selected");
+    });
+
     element.classList.add("selected");
+
 }
 
+
 /* DOWNLOAD */
-function downloadMedia(){
+
+async function downloadMedia(){
+
+    if(!mediaURL){
+
+        toast(
+            "Please paste a URL first."
+        );
+
+        return;
+    }
+
+
     if(!selectedFormat){
-        toast("Please select MP3 or Video.");
+
+        toast(
+            "Please select MP3 or Video."
+        );
+
         return;
     }
-    if(selectedFormat === "video" && !selectedQuality){
-        toast("Please select video quality.");
+
+
+    if(
+        selectedFormat==="video" &&
+        !selectedQuality
+    ){
+
+        toast(
+            "Please select video quality."
+        );
+
         return;
     }
-    toast("Download request ready: " + selectedFormat.toUpperCase() +
-        (selectedQuality ? " - " + selectedQuality : ""));
+
+
+    toast(
+        "Starting download..."
+    );
+
+
+    try{
+
+        const response=
+            await fetch(mediaURL);
+
+        if(!response.ok){
+
+            throw new Error(
+                "Download failed"
+            );
+
+        }
+
+
+        const blob=
+            await response.blob();
+
+
+        const blobURL=
+            URL.createObjectURL(blob);
+
+
+        const link=
+            document.createElement("a");
+
+
+        link.href=blobURL;
+
+        link.download=
+            "KOD-Media";
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        setTimeout(()=>{
+            URL.revokeObjectURL(blobURL);
+        },1000);
+
+
+        toast(
+            "Download started."
+        );
+
+
+    }catch(error){
+
+        /*
+        Some servers don't allow
+        browser cross-origin downloads.
+        */
+
+        const link=
+            document.createElement("a");
+
+        link.href=mediaURL;
+
+        link.target="_blank";
+
+        link.rel="noopener";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        toast(
+            "Opening media URL..."
+        );
+
+    }
+
 }
+
+
+/* ENTER KEY */
+
+document
+.getElementById("url")
+.addEventListener(
+    "keydown",
+    event=>{
+
+        if(event.key==="Enter"){
+
+            fetchVideo();
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
